@@ -71,3 +71,9 @@ ax.set_xlabel("Electricity price €/kWh")
 ax.set_ylabel("Hydrogen heat cost €/kWh")
 
 st.pyplot(fig)
+
+panel_efficiency = 0.2
+
+PV_area = (PV_capacity*1000)/(panel_efficiency*1000)
+
+st.write("Required PV area:",round(PV_area,1),"m²")
