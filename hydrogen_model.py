@@ -207,30 +207,39 @@ def heating_costs(LCOH):
 # MAIN MODEL EXECUTION
 # =====================================================
 
-def run_model():
+def run_model(
+    PV_capacity,
+    electricity_demand,
+    heating_demand,
+    electricity_price,
+    gas_price,
+    electrolyser_efficiency
+):
 
-    hydrogen, PV_generation, surplus = hydrogen_production_model()
+    PV_yield = 1100
+    boiler_efficiency = 0.9
+    LHV_H2 = 33.33
 
-    LCOH = calculate_LCOH(hydrogen)
+    PV_generation = PV_capacity * PV_yield
 
-    heat_cost_H2, heat_cost_gas = heating_costs(LCOH)
+    surplus = max(0, PV_generation - electricity_demand)
 
-    H_required = hydrogen_required_for_heating()
+    hydrogen_production = surplus / electrolyser_efficiency
 
-    storage_volume = hydrogen_storage_volume(H_required)
+    heat_from_h2 = hydrogen_production * LHV_H2 * boiler_efficiency
 
-    pv_area = pv_area_required(PV_capacity)
+    heat_cost_H2 = electricity_price * electrolyser_efficiency / (LHV_H2*boiler_efficiency)
+
+    heat_cost_gas = gas_price / 0.9
 
     results = {
 
         "PV_generation": PV_generation,
-        "PV_area": pv_area,
-        "hydrogen_production": hydrogen,
-        "hydrogen_required": H_required,
-        "storage_volume": storage_volume,
-        "LCOH": LCOH,
+        "hydrogen_production": hydrogen_production,
+        "heat_from_h2": heat_from_h2,
         "heat_cost_H2": heat_cost_H2,
         "heat_cost_gas": heat_cost_gas
+
     }
 
     return results
