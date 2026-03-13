@@ -77,3 +77,19 @@ panel_efficiency = 0.2
 PV_area = (PV_capacity*1000)/(panel_efficiency*1000)
 
 st.write("Required PV area:",round(PV_area,1),"m²")
+
+
+LHV_H2 = 33.33
+
+boiler_efficiency = 0.9
+
+H_required = heating_demand/(LHV_H2*boiler_efficiency)
+
+st.write("Hydrogen needed for heating:",round(H_required,1),"kg")
+
+
+density = 23
+
+volume = H_required/density
+
+st.write("Hydrogen tank volume:",round(volume,2),"m³")
