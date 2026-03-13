@@ -2,8 +2,12 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
+import sys
+import streamlit as st
+
 from hydrogen_model import run_model
 
+st.write(sys.version)
 
 st.title("Residential Hydrogen Energy System Model")
 
