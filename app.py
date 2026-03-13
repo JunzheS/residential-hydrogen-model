@@ -208,3 +208,22 @@ ax3.set_xlabel("Electricity price €/kWh")
 ax3.set_ylabel("Gas price €/kWh")
 
 st.pyplot(fig3)
+
+# --------------------
+# DOWNLOAD REPORT PDF    
+# --------------------
+import subprocess
+
+st.header("Generate analysis report")
+
+if st.button("Generate PDF report"):
+
+    subprocess.run(["python","report/generate_report.py"])
+
+    with open("hydrogen_analysis_report.pdf","rb") as file:
+
+        st.download_button(
+            label="Download report",
+            data=file,
+            file_name="hydrogen_report.pdf"
+        )
