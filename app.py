@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 
-from model.hydrogen_model import run_model
+from hydrogen_model import run_model
 
 
 st.title("Residential Hydrogen Energy Model")
